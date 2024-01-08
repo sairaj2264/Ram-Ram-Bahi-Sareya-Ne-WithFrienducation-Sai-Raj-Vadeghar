@@ -1,0 +1,47 @@
+int* spiralOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {
+    if (matrixSize == 0 || *matrixColSize == 0)
+     {
+        *returnSize = 0;
+        return NULL;
+    }
+
+    int rows = matrixSize;
+    int cols = *matrixColSize;
+    int top = 0, bottom = rows - 1, left = 0, right = cols - 1;
+    int *FinalMatrix = (int*)malloc(rows * cols * sizeof(int));
+    *returnSize = rows * cols;
+    int index = 0;
+
+    while (top <= bottom && left <= right)
+     {
+        for (int i = left; i <= right; i++)
+         {
+            FinalMatrix[index++] = matrix[top][i];
+        }
+        top++;
+        for (int i = top; i <= bottom; i++)
+         {
+            FinalMatrix[index++] = matrix[i][right];
+        }
+        right--;
+        if (top <= bottom)
+         {
+            for (int i = right; i >= left; i--)
+             {
+                FinalMatrix[index++] = matrix[bottom][i];
+            }
+            bottom--;
+        }
+
+        if (left <= right)
+         {
+            for (int i = bottom; i >= top; i--) 
+            {
+                FinalMatrix[index++] = matrix[i][left];
+            }
+            left++;
+        }
+    }
+
+    return FinalMatrix;
+}
